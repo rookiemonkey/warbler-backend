@@ -25,6 +25,12 @@ const msgRoutesAll = require("./routes/messages-all");
 const isLogin = require("./middlewares/isLogin");
 const isAuthorize = require("./middlewares/isAuthrorize");
 
+app.all('/', function(req, res, next) {
+res.header("Access-Control-Allow-Origin", "*");
+res.header("Access-Control-Allow-Headers", "X-Requested-With");
+next()
+});
+
 // /api/auth is a prefix followed by the route on authRoutes
 app.use("/api/auth", authRoutes)
 app.use("/api/auth/:id/message", isLogin, isAuthorize, msgRoutes)
