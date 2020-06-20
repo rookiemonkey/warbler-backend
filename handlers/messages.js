@@ -1,4 +1,6 @@
+require("dotenv").config();
 const db = require("../models");
+const jwt = require("jsonwebtoken")
 
 // POST - api/users/:id/message
 exports.createMsg = async function(req, res, next) {
@@ -52,11 +54,21 @@ exports.getMsg = async function(req, res, next) {
 // DELETE - api/users/:id/message/:message_id
 exports.deleteMsg = async function(req, res, next) {
     try {
+        const currentUser = await db.User.findById(req.params.id);
         const foundMessage = await db.Message.findById(req.params.message_id);
-        await foundMessage.remove()
-        res.status(200).json(foundMessage)
+
+        if (JSON.stringify(foundMessage.user._id) === JSON.stringify(currentUser._id)) {
+            await foundMessage.remove()
+            res.status(200).json({ removed: foundMessage })
+
+        } else {
+            res.status(401).json({ status: 401, message: "Unauthorized" })
+        }
+
     }
     catch (err) {
+
         return next(err)
+
     }
 }
