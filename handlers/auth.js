@@ -9,6 +9,7 @@ const isMatch = async (user, pw) => {
 }
 
 exports.signin = async (req, res, next) => {
+
     try {
 
         // find the user on the database
@@ -17,10 +18,11 @@ exports.signin = async (req, res, next) => {
         // compare the currentuser and the password from the form returns a boolean
         const match = await isMatch(foundUser, req.body.password)
 
+
         if (match) {
 
             // destructuring the keys
-            const { id, username, profilePicture } = foundUser
+            const { id, username, profilePicture, accountCreation } = foundUser
 
             // creating a token
             const token = jwt.sign({
@@ -30,7 +32,13 @@ exports.signin = async (req, res, next) => {
             }, process.env.SECRET_KEY)
 
             // return the foundUser along with the token
-            return res.status(200).json({ token, id, username, profilePicture })
+            return res.status(200).json({
+                token,
+                id,
+                username,
+                profilePicture,
+                accountCreation
+            })
         }
 
         else {
@@ -51,6 +59,7 @@ exports.signin = async (req, res, next) => {
 
     }
 }
+
 
 exports.signup = async (req, res, next) => {
     try {
@@ -95,13 +104,13 @@ exports.signup = async (req, res, next) => {
     }
     catch (err) {
 
-        if (err.message == "Unexpected token o in JSON at position 1") {
-
-            // E11000 Mongo Duplicate error uname/pword already
-            let err = new Error("Username/Email is already taken, Consider using a different username or email")
+        if (err.name == "MongoError") {
 
             // pass the error to error.js handler
-            next(err)
+            next({
+                status: 400,
+                message: "Username/Email is already taken, Consider using a different username or email"
+            })
 
         } else {
 

@@ -13,7 +13,7 @@ exports.createMsg = async function(req, res, next) {
         const foundUser= await db.User.findById(req.params.id)
 
         // push the created message to the user's messages
-        foundUser.messages.push(message)
+        foundUser.messages.shift(message)
 
         // save the user
         await foundUser.save()
