@@ -39,7 +39,8 @@ exports.signin = async (req, res, next) => {
                 id,
                 username,
                 profilePicture,
-                accountCreation
+                accountCreation,
+                email
             })
         }
 
