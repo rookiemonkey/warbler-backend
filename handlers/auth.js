@@ -22,13 +22,15 @@ exports.signin = async (req, res, next) => {
         if (match) {
 
             // destructuring the keys
-            const { id, username, profilePicture, accountCreation } = foundUser
+            const { id, username, profilePicture, accountCreation, email } = foundUser
 
             // creating a token
             const token = jwt.sign({
                 id,
                 username,
                 profilePicture,
+                accountCreation,
+                email
             }, process.env.SECRET_KEY)
 
             // return the foundUser along with the token
