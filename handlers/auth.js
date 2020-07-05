@@ -1,7 +1,16 @@
 const db = require("../models");
 const jwt = require("jsonwebtoken");
+const multer = require('multer');
+const cloudinary = require('cloudinary');
 const User = require("../models/user");
-const { json } = require("body-parser");
+const setMulter = require("../helpers/setMulter");
+const setCloudinary = require("../helpers/setCloudinary");
+
+// configure multer
+const upload = setMulter(multer);
+
+// configure cloudinary
+cloudinary.config(setCloudinary());
 
 const isMatch = async (user, pw) => {
     // invoked the method for user model
