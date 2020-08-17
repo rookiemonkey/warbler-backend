@@ -1,8 +1,8 @@
-const express =require("express");
-const router = express.Router({mergeParams: true})
-const {getAllMessages} = require('../handlers/messages-all');
+const express = require("express");
+const router = express.Router({ mergeParams: true })
+const getMsgAll = require('../handlers/message_readAll')
 
 router.route("/")
-    .get(getAllMessages)
+    .get(getMsgAll)
 
 module.exports = router
