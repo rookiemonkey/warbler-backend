@@ -1,6 +1,8 @@
 const express = require("express");
-const router = express.Router({mergeParams: true})
-const {createMsg, getMsg, deleteMsg} = require("../handlers/messages");
+const router = express.Router({ mergeParams: true })
+const getMsg = require('../handlers/message_read')
+const createMsg = require('../handlers/message_create')
+const deleteMsg = require('../handlers/message_delete')
 
 // prefix - /api/users/:id/message
 router.route("/")
