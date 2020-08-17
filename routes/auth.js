@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express();
-const {signup, signin} = require("../handlers/auth")
+const signin = require('../handlers/signin')
+const signup = require('../handlers/signup')
 
 // prefix - /api/auth
 router.post("/signup", signup)
