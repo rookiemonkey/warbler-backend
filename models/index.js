@@ -4,7 +4,7 @@ mongoose.Promise = Promise;
 
 // connect to the database
 mongoose.connect(
-    "mongodb+srv://kevin12345:kevin12345@warbler-nvqky.mongodb.net/warbler?retryWrites=true&w=majority",
+    process.env.DB_URL,
     {
         useNewUrlParser: true,
         keepAlive: true,
@@ -13,8 +13,13 @@ mongoose.connect(
 )
 
 // check mongoose connection
-mongoose.connection.on("open", () => { console.log(`CONNECTED TO MONGODATA BASE TIMESTAMP: ${Date()}`) })
-mongoose.connection.on("error", () => { console.error(`FAILED TO CONNECT TO THE DATABASE...`) })
+mongoose.connection.on("open", () => {
+    console.log(`CONNECTED TO MONGODATA BASE TIMESTAMP: ${Date()}`)
+})
+
+mongoose.connection.on("error", () => {
+    console.error(`FAILED TO CONNECT TO THE DATABASE...`)
+})
 
 // directory being imported on /handlers/auth.js
 // bundles everything inside this directory
