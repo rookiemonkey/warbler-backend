@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    OTP: {
+        type: Boolean,
+        default: false
+    },
+    OTPkey: String,
     profilePicture: {
         type: String
     },

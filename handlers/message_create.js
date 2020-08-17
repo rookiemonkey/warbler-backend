@@ -1,4 +1,5 @@
 const Message = require('../models/message')
+const User = require('../models/user')
 
 // POST - api/users/:id/message
 const createMsg = async (req, res) => {
@@ -10,7 +11,7 @@ const createMsg = async (req, res) => {
         })
 
         // find the user
-        const foundUser = await db.User.findById(req.params.id)
+        const foundUser = await User.findById(req.params.id)
 
         // push the created message to the user's messages
         foundUser.messages.shift(message)
