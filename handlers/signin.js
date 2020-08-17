@@ -12,6 +12,16 @@ const signin = async (req, res, next) => {
         // find the user on the database
         const foundUser = await User.findOne({ email: req.body.email })
 
+        // check if user's login is via OTP
+        if (foundUser.OTP) {
+            return res
+                .status(400)
+                .json({
+                    status: 400,
+                    message: "Your account is set to login using OTP. Please try logging in using OTP"
+                })
+        }
+
         // compare the currentuser and the password from the form returns a boolean
         const match = await isMatch(foundUser, req.body.password)
 
@@ -33,10 +43,12 @@ const signin = async (req, res, next) => {
         else {
 
             // if false
-            return res.json({
-                status: 400,
-                message: "Invalid username/password. Please try again"
-            })
+            return res
+                .status(400)
+                .json({
+                    status: 400,
+                    message: "Invalid username/password. Please try again"
+                })
         }
 
     }
