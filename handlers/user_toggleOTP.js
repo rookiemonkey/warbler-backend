@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Speakeasy = require("speakeasy");
 
 const toggleOTP = async (req, res) => {
 
