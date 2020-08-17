@@ -7,7 +7,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const db = require("./models")
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -22,19 +21,19 @@ app.use(bodyParser.json())
 const authRoutes = require("./routes/auth");
 const msgRoutes = require("./routes/messages");
 const msgRoutesAll = require("./routes/messages-all");
-const isLogin = require("./middlewares/isLogin");
+const isLoggedIn = require("./middlewares/isLoggedIn");
 const isAuthorize = require("./middlewares/isAuthrorize");
 
-app.all('/', function(req, res, next) {
-res.header("Access-Control-Allow-Origin", "*");
-res.header("Access-Control-Allow-Headers", "X-Requested-With");
-next()
+app.all('/', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next()
 });
 
 // /api/auth is a prefix followed by the route on authRoutes
 app.use("/api/auth", authRoutes)
-app.use("/api/auth/:id/message", isLogin, isAuthorize, msgRoutes)
-app.use("/api/messages", isLogin, msgRoutesAll)
+app.use("/api/auth/:id/message", isLoggedIn, isAuthorize, msgRoutes)
+app.use("/api/messages", isLoggedIn, msgRoutesAll)
 
 
 
