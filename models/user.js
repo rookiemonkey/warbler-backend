@@ -44,6 +44,18 @@ userSchema.pre('save', async function (next) {
     }
 })
 
+userSchema.pre('remove', async function (next) {
+    try {
+        await Message.deleteMany({ user: this.id })
+
+        return next();
+    }
+
+    catch (err) {
+        return next(err)
+    }
+})
+
 userSchema.methods.comparePassword = async (candidatePassword, hash) => {
     try {
         return await bcrypt.compare(candidatePassword, hash)
