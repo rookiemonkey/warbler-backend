@@ -9,6 +9,8 @@ const toggleOTP = async (req, res) => {
         foundUser.OTP = !foundUser.OTP
 
         if (!foundUser.OTP) {
+            foundUser.OTPkey = ''
+            await foundUser.save()
             return res
                 .status(201)
                 .json({ message: "Successfully turned off OTP" })
