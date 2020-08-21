@@ -6,13 +6,7 @@ const User = require('../models/user')
 const forgotPassword = async (req, res, next) => {
 
     async.waterfall([
-        function (done) {
-            const buffer = crypto.randomBytes(20)
-            const token = buffer.toString('hex');
-            done(null, token);
-        },
-
-        async function (token, done) {
+        async function (done) {
             const foundUser = await User.findOne({ email: req.body.email })
             if (!foundUser) {
                 return res
@@ -20,6 +14,18 @@ const forgotPassword = async (req, res, next) => {
                     .json({ status: 400, message: "User doesn't exists" })
             }
 
+            if (foundUser.OTP) {
+                return res
+                    .status(400)
+                    .json({ status: 400, message: "Password reset is not applicable for accounts with OTP as their login" })
+            }
+
+            done(null, foundUser);
+        },
+
+        async function (foundUser, done) {
+            const buffer = crypto.randomBytes(20)
+            const token = buffer.toString('hex');
             await setPasswordResetToken(foundUser, token)
             done(null, foundUser, token)
         },
