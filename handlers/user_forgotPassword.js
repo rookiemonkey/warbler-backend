@@ -14,7 +14,11 @@ const forgotPassword = async (req, res, next) => {
 
         async function (token, done) {
             const foundUser = await User.findOne({ email: req.body.email })
-            if (!foundUser) { throw new Error('No Account with that email address') }
+            if (!foundUser) {
+                return res
+                    .status(400)
+                    .json({ status: 400, message: "User doesn't exists" })
+            }
 
             await setPasswordResetToken(foundUser, token)
             done(null, foundUser, token)
