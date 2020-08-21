@@ -4,13 +4,13 @@ const handleError = (err, req, res, next) => {
     (err.status === 400)
         ? res.json({
             error: {
-                errorCode: 400,
+                status: 400,
                 message: `Username/Email is already taken. Please use a different Username/Email`
             }
         })
         : res.status(err.status || 500).json({
             error: {
-                errorCode: err.status,
+                status: err.status,
                 message: err.message || `Something went wrong.. Please try again`
             }
         })
