@@ -4,7 +4,7 @@ const Speakeasy = require("speakeasy");
 const toggleOTP = async (req, res) => {
 
     try {
-        const foundUser = await User.findById(req.params.id)
+        const foundUser = await User.findOne({ email: req.body.email })
 
         foundUser.OTP = !foundUser.OTP
 

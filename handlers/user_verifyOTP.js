@@ -5,7 +5,7 @@ const User = require('../models/user')
 const verifyOTP = async (req, res) => {
 
     try {
-        const foundUser = await User.findById(req.params.id)
+        const foundUser = await User.findOne({ email: req.body.email })
 
         const isVerified = Speakeasy.totp.verify({
             secret: foundUser.OTPkey,
