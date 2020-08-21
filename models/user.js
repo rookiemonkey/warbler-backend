@@ -32,6 +32,20 @@ const userSchema = new mongoose.Schema({
     accountCreation: {
         type: Date,
         default: Date.now()
+    },
+    resetPasswordToken: {
+        type: String,
+        default: '',
+        validate(value) {
+            if (value) { throw new Error('Invalid action') }
+        }
+    },
+    resetPasswordExpires: {
+        type: Date,
+        default: '',
+        validate(value) {
+            if (value) { throw new Error('Invalid action') }
+        }
     }
 })
 

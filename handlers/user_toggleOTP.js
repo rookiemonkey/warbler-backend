@@ -19,6 +19,9 @@ const toggleOTP = async (req, res) => {
         const secret = Speakeasy.generateSecret({ length: 20 })
         foundUser.OTPkey = secret.base32
         await foundUser.save()
+        return res
+            .status(201)
+            .json({ message: "Successfully turned on OTP" })
     }
 
     catch (err) {
