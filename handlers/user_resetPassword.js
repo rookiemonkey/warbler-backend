@@ -13,15 +13,14 @@ const resetPassword = (req, res) => {
                     .json({ status: 400, message: "Token is expired" })
             }
 
-            if (req.body.newPassword === req.body.confirmPassword) {
-                await toResetPassword(foundUser, req.body.newPassword);
-                done(null, foundUser)
-
-            } else {
+            if (req.body.newPassword !== req.body.confirmPassword) {
                 return res
                     .status(400)
                     .json({ status: 400, message: "Passwords do not match" })
             }
+
+            await toResetPassword(foundUser, req.body.newPassword);
+            done(null, foundUser)
         },
         async function (foundUser, done) {
             await toEmail(
