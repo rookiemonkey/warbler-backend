@@ -13,8 +13,6 @@ const signin = async (req, res, next) => {
         const foundUser = await User.findOne({ email: req.body.email })
         if (!foundUser) { throw new Error("Invalid username/password. Please try again") }
 
-        console.log(foundUser)
-
         // check if user's login is via OTP
         if (foundUser.OTP) {
             return res

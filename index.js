@@ -34,9 +34,9 @@ app.all('/', function (req, res, next) {
 });
 
 // /api/auth is a prefix followed by the route on authRoutes
-app.use("/api/auth", isApplicable, authRoutes)
 app.use("/api/auth/otp", otpRoutes)
 app.use("/api/auth/password", isApplicable, passwordRoutes)
+app.use("/api/auth", isApplicable, authRoutes)
 app.use("/api/message/all", isLoggedIn, msgRoutesAll)
 app.use("/api/message/:id", isLoggedIn, isAuthorize, msgRoutes)
 

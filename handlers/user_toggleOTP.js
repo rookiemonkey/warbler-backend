@@ -5,6 +5,7 @@ const toggleOTP = async (req, res) => {
 
     try {
         const foundUser = await User.findOne({ email: req.body.email })
+        if (!foundUser) { throw new Error("User doesn't exists") }
 
         foundUser.OTP = !foundUser.OTP
 

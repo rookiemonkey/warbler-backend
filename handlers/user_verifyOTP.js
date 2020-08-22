@@ -2,10 +2,13 @@ const jwt = require("jsonwebtoken")
 const Speakeasy = require("speakeasy");
 const User = require('../models/user')
 
-const verifyOTP = async (req, res) => {
+const verifyOTP = async (req, res, next) => {
 
     try {
         const foundUser = await User.findOne({ email: req.body.email })
+        if (!foundUser) { throw new Error("User doesn't exists") }
+        if (!foundUser.OTP) { throw new Error("Account OTP is not enabled") }
+        if (!req.body.token) { throw new Error("Please provide a valid token") }
 
         const isVerified = Speakeasy.totp.verify({
             secret: foundUser.OTPkey,
