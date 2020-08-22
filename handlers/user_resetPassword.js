@@ -5,7 +5,7 @@ const User = require('../models/user')
 
 const resetPassword = (req, res) => {
     async.waterfall([
-        async function (done) {
+        async function () {
             const foundUser = await User.findOne({ resetPasswordToken: req.params.token })
             if (!foundUser) {
                 return res
@@ -18,11 +18,11 @@ const resetPassword = (req, res) => {
                     .status(400)
                     .json({ status: 400, message: "Passwords do not match" })
             }
-
+            
             await toResetPassword(foundUser, req.body.newPassword);
-            done(null, foundUser)
+            return foundUser
         },
-        async function (foundUser, done) {
+        async function (foundUser) {
             await toEmail(
                 foundUser.email,
                 `Warbler Password Reset Success`,

@@ -4,6 +4,6 @@ const resetPassword = require('../handlers/user_resetPassword')
 
 // prefix - /api/auth/password
 router.post("/forgot", forgotPassword)
-router.post("/reset", resetPassword)
+router.post("/reset/:token", resetPassword)
 
 module.exports = router
