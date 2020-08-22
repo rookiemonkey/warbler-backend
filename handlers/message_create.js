@@ -26,7 +26,7 @@ const createMsg = async (req, res) => {
             .populate("user", {
                 username: true,
                 profilePicture: true,
-                creationDate: true
+                createdAt: true
             })
 
         // respond back the found message to the client

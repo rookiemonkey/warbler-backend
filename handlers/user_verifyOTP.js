@@ -23,8 +23,8 @@ const verifyOTP = async (req, res, next) => {
                 .json({ status: 401, message: "Unauthorized" })
         }
 
-        const { _id, username, profilePicture, accountCreation, email } = foundUser
-        const payload = { _id, username, profilePicture, accountCreation, email }
+        const { _id, username, profilePicture, createdAt, email } = foundUser
+        const payload = { _id, username, profilePicture, createdAt, email }
 
         const token = await setToken(payload)
 
