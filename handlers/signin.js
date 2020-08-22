@@ -11,45 +11,41 @@ const signin = async (req, res, next) => {
 
         // find the user on the database
         const foundUser = await User.findOne({ email: req.body.email })
+        if (!foundUser) { throw new Error("Invalid username/password. Please try again") }
+
+        console.log(foundUser)
 
         // check if user's login is via OTP
         if (foundUser.OTP) {
             return res
-                .status(400)
                 .json({
                     status: 400,
-                    message: "Your account is set to login using OTP. Please try logging in using OTP"
+                    message: "Your account is set to login using OTP. Please try to login using OTP"
                 })
         }
 
         // compare the currentuser and the password from the form returns a boolean
         const match = await isMatch(foundUser, req.body.password)
 
-        if (match) {
-
-            // destructuring the keys
-            const { _id, username, profilePicture, accountCreation, email } = foundUser
-            const payload = { _id, username, profilePicture, accountCreation, email }
-
-            // creating a token
-            const token = await jwt.sign(payload, process.env.SECRET_KEY)
-
-            // return the foundUser along with the token
+        if (!match) {
             return res
-                .status(200)
-                .json({ ...payload, token })
-        }
-
-        else {
-
-            // if false
-            return res
-                .status(400)
                 .json({
                     status: 400,
                     message: "Invalid username/password. Please try again"
                 })
         }
+
+        // destructuring the keys
+        const { _id, username, profilePicture, accountCreation, email } = foundUser
+        const payload = { _id, username, profilePicture, accountCreation, email }
+
+        // creating a token
+        const token = await jwt.sign(payload, process.env.SECRET_KEY)
+
+        // return the foundUser along with the token
+        return res
+            .status(200)
+            .json({ ...payload, token })
 
     }
 
