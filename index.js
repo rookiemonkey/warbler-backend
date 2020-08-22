@@ -19,8 +19,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // ROUTES
 // ==========================
 const authRoutes = require("./routes/auth");
+const otpRoutes = require('./routes/otp');
+const passwordRoutes = require('./routes/password');
 const msgRoutes = require("./routes/messages");
 const msgRoutesAll = require("./routes/messages-all");
+const isApplicable = require("./middlewares/isApplicable");
 const isLoggedIn = require("./middlewares/isLoggedIn");
 const isAuthorize = require("./middlewares/isAuthrorize");
 
@@ -31,9 +34,11 @@ app.all('/', function (req, res, next) {
 });
 
 // /api/auth is a prefix followed by the route on authRoutes
-app.use("/api/auth", authRoutes)
-app.use("/api/auth/:id/message", isLoggedIn, isAuthorize, msgRoutes)
-app.use("/api/messages", isLoggedIn, msgRoutesAll)
+app.use("/api/auth", isApplicable, authRoutes)
+app.use("/api/auth/otp", otpRoutes)
+app.use("/api/auth/password", isApplicable, passwordRoutes)
+app.use("/api/message/all", isLoggedIn, msgRoutesAll)
+app.use("/api/message/:id", isLoggedIn, isAuthorize, msgRoutes)
 
 
 
