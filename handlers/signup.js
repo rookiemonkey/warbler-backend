@@ -15,14 +15,14 @@ const signup = async (req, res, next) => {
         })
         if (!areInputsValid) { throw new Error("Invalid fields provided") }
 
+        // is email valid?
+        const isEmailValid = isEmail(req.body.email)
+        if (!isEmailValid) { throw new Error('Please provide a valid email address') }
+
         // upload profilePicture, fallback to default
         let avatar = await toUpload(cloudinary, req);
         if (!avatar) { avatar = 'https://res.cloudinary.com/promises/image/upload/v1596613153/global_default_image.png' }
         req.body.profilePicture = avatar
-
-        // is email valid?
-        const isEmailValid = isEmail(req.body.email)
-        if (!isEmailValid) { throw new Error('Please provide a valid email address') }
 
         // create the user
         const createdUser = await User.create(req.body)
