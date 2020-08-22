@@ -1,9 +1,11 @@
 const Message = require('../models/message')
 
-// GET - api/users/:id/message/:message_id
+// GET - /api/message/:id/:message_id
 const getMsg = async function (req, res, next) {
     try {
-        const foundMessage = await Message.findById(req.params.message_id);
+        const foundMessage = await Message.findById(req.params.message_id)
+            .populate('user', `_id username email profilePicture`)
+
         return res
             .status(200)
             .json(foundMessage);
