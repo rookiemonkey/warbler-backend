@@ -10,7 +10,7 @@ async function isAuthorize(req, res, next) {
         const decoded = await jwt.verify(token, process.env.SECRET_KEY)
 
         // compare decoded.id and the id in parameter
-        if (decoded && decoded.id == req.params.id) { next() }
+        if (decoded && decoded._id == req.params.id) { next() }
         else { next({ status: 401, message: "Unauthorized" }) }
 
     }
