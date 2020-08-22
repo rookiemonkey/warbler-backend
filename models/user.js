@@ -30,17 +30,11 @@ const userSchema = new mongoose.Schema({
     }],
     resetPasswordToken: {
         type: String,
-        default: '',
-        validate(value) {
-            if (value) { throw new Error('Invalid action') }
-        }
+        default: ''
     },
     resetPasswordExpires: {
         type: Date,
-        default: '',
-        validate(value) {
-            if (value) { throw new Error('Invalid action') }
-        }
+        default: ''
     }
 }, { timestamps: true })
 
