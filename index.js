@@ -2,6 +2,7 @@
 // DEPENDENCIES
 // ==========================
 require("dotenv").config();
+require("./models");
 const PORT = process.env.PORT || 8081;
 const express = require("express");
 const app = express();
@@ -10,7 +11,6 @@ const bodyParser = require("body-parser");
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
 
 
 
@@ -41,13 +41,6 @@ app.use("/api/messages", isLoggedIn, msgRoutesAll)
 // ERROR HANDLERS
 // ==========================
 const handleError = require('./handlers/error');
-app.use(function (req, res, next) {
-    const err = new Error("Page Not Found");
-    err.status = 404;
-    next(err);
-    // error obj will be passed to the next middleware
-})
-
 app.use(handleError) // handles all the error
 
 

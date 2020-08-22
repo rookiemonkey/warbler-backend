@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 8
     },
     OTP: {
         type: Boolean,
@@ -29,10 +30,6 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Message"
     }],
-    accountCreation: {
-        type: Date,
-        default: Date.now()
-    },
     resetPasswordToken: {
         type: String,
         default: '',
@@ -47,7 +44,7 @@ const userSchema = new mongoose.Schema({
             if (value) { throw new Error('Invalid action') }
         }
     }
-})
+}, { timestamps: true })
 
 userSchema.pre('save', async function (next) {
     try {

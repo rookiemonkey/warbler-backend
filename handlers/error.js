@@ -1,17 +1,11 @@
-const handleError = (err, req, res, next) => {
-    // the err comes from the first middleware defined in index.js incase its not a 404 error
-    // this is by-the-way with the use of multi-line ternary, its working
-    (err.status === 400)
-        ? res.json({
+const handleError = (error, req, res, next) => {
+    return res
+        .status(error.status || 500)
+        .json({
             error: {
-                status: 400,
-                message: `Username/Email is already taken. Please use a different Username/Email`
-            }
-        })
-        : res.status(err.status || 500).json({
-            error: {
-                status: err.status,
-                message: err.message || `Something went wrong.. Please try again`
+                status: error.status,
+                message: error.message || `Something went wrong.. Please try again`
+
             }
         })
 }
