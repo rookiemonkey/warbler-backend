@@ -8,6 +8,13 @@ cloudinary.config(require("../helpers/setCloudinary")());
 const signup = async (req, res, next) => {
     try {
 
+        // check valid inputs
+        const validInputs = ['username', 'email', 'password', 'profilePicture']
+        const areInputsValid = Object.keys(req.body).every(bodyInput => {
+            return validInputs.includes(bodyInput)
+        })
+        if (!areInputsValid) { throw new Error("Invalid fields provided") }
+
         // upload profilePicture, fallback to default
         let avatar = await toUpload(cloudinary, req);
         if (!avatar) { avatar = 'https://res.cloudinary.com/promises/image/upload/v1596613153/global_default_image.png' }
