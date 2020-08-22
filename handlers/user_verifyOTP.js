@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken")
 const Speakeasy = require("speakeasy");
 const User = require('../models/user')
+const setToken = require('../helpers/setToken');
 
 const verifyOTP = async (req, res, next) => {
 
@@ -26,7 +26,7 @@ const verifyOTP = async (req, res, next) => {
         const { _id, username, profilePicture, accountCreation, email } = foundUser
         const payload = { _id, username, profilePicture, accountCreation, email }
 
-        const token = await jwt.sign(payload, process.env.SECRET_KEY)
+        const token = await setToken(payload)
 
         return res
             .status(200)

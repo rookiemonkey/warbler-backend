@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+const setToken = require('../helpers/setToken');
 const User = require("../models/user");
 
 const isMatch = async (user, pw) => {
@@ -38,7 +38,7 @@ const signin = async (req, res, next) => {
         const payload = { _id, username, profilePicture, accountCreation, email }
 
         // creating a token
-        const token = await jwt.sign(payload, process.env.SECRET_KEY)
+        const token = await setToken(payload)
 
         // return the foundUser along with the token
         return res
