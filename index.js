@@ -3,14 +3,17 @@
 // ==========================
 require("dotenv").config();
 require("./models");
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8080;
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+app.set('trust proxy', true);
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+
 
 
 
@@ -54,6 +57,8 @@ app.use(handleError) // handles all the error
 // ==========================
 // SERVER
 // ==========================
-app.listen(PORT, () => {
-    console.log(`SERVER STARTED AT http://localhost:${PORT}. TIMESTAMP: ${Date()}`)
+const server = app.listen(PORT, () => {
+    const host = server.address().address;
+    const port = server.address().port;
+    console.log(`Warbler listening at http://${host}:${port}`);
 })
