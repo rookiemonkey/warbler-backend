@@ -1,15 +1,17 @@
 const jwt = require("jsonwebtoken");
-const isEmail = require('validator/lib/isEmail')
-const multer = require('multer');
 const cloudinary = require('cloudinary');
+const isEmail = require('validator/lib/isEmail')
 const User = require("../models/user");
-const setMulter = require("../helpers/setMulter");
-const setCloudinary = require("../helpers/setCloudinary");
-const upload = setMulter(multer);
-cloudinary.config(setCloudinary());
+const toUpload = require('../helpers/toUpload')
+cloudinary.config(require("../helpers/setCloudinary")());
 
 const signup = async (req, res, next) => {
     try {
+
+        // upload profilePicture, fallback to default
+        let avatar = await toUpload(cloudinary, req);
+        if (!avatar) { avatar = 'https://res.cloudinary.com/promises/image/upload/v1596613153/global_default_image.png' }
+        req.body.profilePicture = avatar
 
         // create the user
         const createdUser = await User.create(req.body)

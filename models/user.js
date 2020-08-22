@@ -23,9 +23,7 @@ const userSchema = new mongoose.Schema({
         default: false
     },
     OTPkey: String,
-    profilePicture: {
-        type: String
-    },
+    profilePicture: String,
     messages: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Message"
