@@ -2,3 +2,5 @@ ok - signup
 ok - signin
 ok - signin otp
 ok - toggle otp
+ok - forgot pw
+ok - reset pw
