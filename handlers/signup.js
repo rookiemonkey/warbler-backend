@@ -32,7 +32,7 @@ const signup = async (req, res, next) => {
         const payload = { _id, username, profilePicture, createdAt, updatedAt, email }
 
         // create a token
-        const token = setToken(payload)
+        const token = await setToken(payload)
 
         // return the newly created user alongwith status code and token
         return res
