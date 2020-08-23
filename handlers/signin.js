@@ -38,7 +38,7 @@ const signin = async (req, res, next) => {
         const payload = { _id, username, profilePicture, createdAt, email }
 
         // creating a token
-        const token = await setToken(payload)
+        const token = setToken(payload)
 
         // return the foundUser along with the token
         return res
