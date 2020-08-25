@@ -1,4 +1,6 @@
 const Speakeasy = require("speakeasy");
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.SECRET_KEY_OTP);
 const User = require('../models/user')
 const setToken = require('../helpers/setToken');
 
@@ -11,7 +13,7 @@ const verifyOTP = async (req, res, next) => {
         if (!req.body.token) { throw new Error("Please provide a valid token") }
 
         const isVerified = Speakeasy.totp.verify({
-            secret: foundUser.OTPkey,
+            secret: cryptr.decrypt(foundUser.OTPkey),
             token: req.body.token,
             encoding: "base32",
             window: 0

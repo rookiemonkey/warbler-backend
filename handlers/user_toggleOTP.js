@@ -1,5 +1,7 @@
-const User = require('../models/user')
 const Speakeasy = require("speakeasy");
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.SECRET_KEY_OTP);
+const User = require('../models/user')
 
 const toggleOTP = async (req, res) => {
 
@@ -18,7 +20,7 @@ const toggleOTP = async (req, res) => {
         }
 
         const secret = Speakeasy.generateSecret({ length: 20 })
-        foundUser.OTPkey = secret.base32
+        foundUser.OTPkey = cryptr.encrypt(secret.base32);
         await foundUser.save()
         return res
             .status(201)
