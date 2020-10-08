@@ -7,7 +7,7 @@ async function isAuthorize(req, res, next) {
         const token = req.headers.authorization.split(" ")[1]
 
         // verify the token taken from the req.headers
-        const decoded = await jwt.verify(token, process.env.SECRET_KEY)
+        const decoded = await jwt.verify(token, process.env.SECRET_KEY_JWT)
 
         // compare decoded.id and the id in parameter
         if (decoded && decoded._id == req.params.id) { next() }

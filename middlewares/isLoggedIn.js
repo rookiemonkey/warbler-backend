@@ -4,7 +4,7 @@ async function isLoggedIn(req, res, next) {
     try {
         const token = req.headers.authorization.split(" ")[1]
 
-        const decoded = await jwt.verify(token, process.env.SECRET_KEY)
+        const decoded = await jwt.verify(token, process.env.SECRET_KEY_JWT)
         if (!decoded) { return next({ status: 401, message: "Please login first" }) }
 
         return next()

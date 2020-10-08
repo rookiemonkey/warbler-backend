@@ -5,7 +5,7 @@ const toEmail = async (recipient, subject, body) => {
     const smtpTransport = nodemailer.createTransport({
         service: "Gmail",
         auth: {
-            user: 'kevinroirigorbasina@gmail.com',
+            user: process.env.GMAILUN,
             pass: process.env.GMAILPW
         }
     });
