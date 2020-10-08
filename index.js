@@ -29,12 +29,6 @@ const isApplicable = require("./middlewares/isApplicable");
 const isLoggedIn = require("./middlewares/isLoggedIn");
 const isAuthorize = require("./middlewares/isAuthrorize");
 
-app.all('/', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next()
-});
-
 // /api/auth is a prefix followed by the route on authRoutes
 app.use("/api/auth/otp", otpRoutes)
 app.use("/api/auth/password", isApplicable, passwordRoutes)
