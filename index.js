@@ -26,6 +26,7 @@ const otpRoutes = require('./routes/otp');
 const passwordRoutes = require('./routes/password');
 const msgRoutes = require("./routes/messages");
 const msgRoutesAll = require("./routes/messages-all");
+const newsRoutes = require("./routes/news");
 const isApplicable = require("./middlewares/isApplicable");
 const isLoggedIn = require("./middlewares/isLoggedIn");
 const isAuthorize = require("./middlewares/isAuthrorize");
@@ -36,6 +37,7 @@ app.use("/api/auth/password", isApplicable, passwordRoutes)
 app.use("/api/auth", isApplicable, authRoutes)
 app.use("/api/message/all", msgRoutesAll)
 app.use("/api/message/:id", isLoggedIn, isAuthorize, msgRoutes)
+app.use("/api/news", newsRoutes)
 
 
 // ==========================
