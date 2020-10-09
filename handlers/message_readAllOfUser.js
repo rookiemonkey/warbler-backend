@@ -5,7 +5,7 @@ const getMsgAllOfUser = async function (req, res, next) {
 
         // find all, sort descending, then populate the user key its username/picture
         const messages = await Message
-            .find({ _id: req.params.userid })
+            .find({ user: req.params.userid })
             .sort({ updatedAt: "desc" })
             .populate("user", `username profilePicture`)
 
