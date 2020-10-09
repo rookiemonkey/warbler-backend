@@ -34,9 +34,8 @@ const isAuthorize = require("./middlewares/isAuthrorize");
 app.use("/api/auth/otp", otpRoutes)
 app.use("/api/auth/password", isApplicable, passwordRoutes)
 app.use("/api/auth", isApplicable, authRoutes)
-app.use("/api/message/all", isLoggedIn, msgRoutesAll)
+app.use("/api/message/all", msgRoutesAll)
 app.use("/api/message/:id", isLoggedIn, isAuthorize, msgRoutes)
-
 
 
 // ==========================
