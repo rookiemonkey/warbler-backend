@@ -9,15 +9,25 @@ const signup = async (req, res, next) => {
     try {
 
         // check valid inputs
-        const validInputs = ['username', 'email', 'password', 'profilePicture']
+        const validInputs = ['username', 'email', 'password', 'confirmPassword', 'profilePicture']
         const areInputsValid = Object.keys(req.body).every(bodyInput => {
             return validInputs.includes(bodyInput)
         })
-        if (!areInputsValid) { throw new Error("Invalid fields provided") }
+        if (!areInputsValid) {
+            throw new Error("Invalid fields provided")
+        }
 
         // is email valid?
         const isEmailValid = isEmail(req.body.email)
-        if (!isEmailValid) { throw new Error('Please provide a valid email address') }
+        if (!isEmailValid) {
+            throw new Error('Please provide a valid email address')
+        }
+
+        // is password a match
+        const { password, confirmPassword } = req.body;
+        if (confirmPassword !== password) {
+            throw new Error("Passwords doesn't match")
+        }
 
         // upload profilePicture, fallback to default
         let avatar = await toUpload(cloudinary, req);
