@@ -16,6 +16,7 @@ const signin = async (req, res, next) => {
         // check if user's login is via OTP
         if (foundUser.OTP) {
             return res
+                .status(401)
                 .json({
                     status: 400,
                     message: "Your account is set to login using OTP. Please try to login using OTP"
@@ -27,6 +28,7 @@ const signin = async (req, res, next) => {
 
         if (!match) {
             return res
+                .status(401)
                 .json({
                     status: 400,
                     message: "Invalid username/password. Please try again"
