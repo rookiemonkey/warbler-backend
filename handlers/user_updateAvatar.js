@@ -17,7 +17,10 @@ const updateAvatar = async (req, res, next) => {
         // respond back to the client
         return res
             .status(200)
-            .json({ result: "successfully updated your profile picture" })
+            .json({
+                result: "successfully updated your profile picture",
+                profilePicture: foundUser.profilePicture
+            })
     }
     catch (err) {
 
