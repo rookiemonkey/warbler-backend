@@ -26,7 +26,7 @@ const verifyOTP = async (req, res, next) => {
         }
 
         const { _id, username, profilePicture, createdAt, email } = foundUser
-        const payload = { _id, username, profilePicture, createdAt, email }
+        const payload = { _id, username, profilePicture, createdAt, email, bio }
 
         const token = await setToken(payload)
 
