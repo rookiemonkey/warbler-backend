@@ -1,7 +1,7 @@
 const sanitizer = require('sanitizer');
 const User = require('../models/user');
 
-// POST - /api/users/bio
+// POST - /api/user/:id/bio
 const updateBio = async (req, res, next) => {
     try {
         // find the user

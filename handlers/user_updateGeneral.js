@@ -1,7 +1,7 @@
 const isEmail = require('validator/lib/isEmail')
 const User = require('../models/user');
 
-// POST - /api/users/general
+// POST - /api/user/:id/general
 const updateGeneral = async (req, res, next) => {
     try {
         // find the user

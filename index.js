@@ -38,6 +38,7 @@ app.use(limiter);
 const authRoutes = require("./routes/auth");
 const otpRoutes = require('./routes/otp');
 const passwordRoutes = require('./routes/password');
+const usersRoutes = require('./routes/users');
 const userRoutes = require('./routes/user');
 const msgRoutes = require("./routes/messages");
 const msgRoutesAll = require("./routes/messages-all");
@@ -50,7 +51,8 @@ const isAuthorize = require("./middlewares/isAuthrorize");
 app.use("/api/auth/otp", otpRoutes)
 app.use("/api/auth/password", isApplicable, passwordRoutes)
 app.use("/api/auth", isApplicable, authRoutes)
-app.use("/api/users/:id", isLoggedIn, isAuthorize, userRoutes)
+app.use("/api/users/:id", usersRoutes);
+app.use("/api/user/:id", isLoggedIn, isAuthorize, userRoutes)
 app.use("/api/message/all", msgRoutesAll)
 app.use("/api/message/:id", isLoggedIn, isAuthorize, msgRoutes)
 app.use("/api/news", newsRoutes)

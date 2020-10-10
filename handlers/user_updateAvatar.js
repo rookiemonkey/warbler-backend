@@ -3,7 +3,7 @@ const User = require('../models/user');
 const toUpload = require('../helpers/toUpload')
 cloudinary.config(require("../helpers/setCloudinary")());
 
-// POST - /api/users/avatar
+// POST - /api/user/:id/avatar
 const updateAvatar = async (req, res, next) => {
     try {
         // find the user

@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-// POST - /api/users/authentication
+// POST - /api/user/:id/authentication
 const updateAuthentication = async (req, res, next) => {
     try {
         // find the user
