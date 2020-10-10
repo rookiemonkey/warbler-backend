@@ -15,7 +15,10 @@ const updateBio = async (req, res, next) => {
         // respond back to the client
         return res
             .status(200)
-            .json({ result: "successfully updated your bio" })
+            .json({
+                result: "successfully updated your bio",
+                bio: foundUser.bio
+            })
     }
     catch (err) {
 
