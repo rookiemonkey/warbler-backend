@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
     },
     OTPkey: String,
     profilePicture: String,
+    bio: {
+        type: String,
+        default: null
+    },
     messages: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Message"
