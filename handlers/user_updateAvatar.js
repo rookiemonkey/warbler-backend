@@ -7,7 +7,7 @@ cloudinary.config(require("../helpers/setCloudinary")());
 const updateAvatar = async (req, res, next) => {
     try {
         // find the user
-        const foundUser = await User.findById(req.params.userid)
+        const foundUser = await User.findById(req.params.id)
         if (!foundUser) { throw new Error("User doesn't exists") }
 
         // save the bio

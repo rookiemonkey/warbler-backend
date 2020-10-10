@@ -9,7 +9,7 @@ const multer = require('multer');
 const setMulter = require("../helpers/setMulter");
 const upload = setMulter(multer);
 
-// prefix - /api/users/:userid
+// prefix - /api/users/:id
 router
     .put("/bio", updateBio)
     .put("/avatar", upload.single('profilePicture'), updateAvatar)
