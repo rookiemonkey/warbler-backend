@@ -33,9 +33,9 @@ const forgotPassword = async (req, res, next) => {
             await toEmail(
                 data.updatedUser.email,
                 `Warbler Password Reset`,
-                `You received this email becuase your requested for a password reset for your Yelpcamp account. Please click the link below or paste it on your browser to proceed in resetting your password
+                `You received this email becuase your requested for a password reset for your Warbler account. Please click the link below or paste it on your browser to proceed in resetting your password
 
-                http://${req.headers.host}/api/auth/password/reset/${data.token}
+                ${process.env.FRONTEND_URL}/password/reset/${data.token}
 
                 If you did not request this, please disregard this email and we will not change your password, Also, report it to us immediately so we can take further action regarding the security of your account.`
             )
