@@ -8,12 +8,15 @@ const getPublicProfile = async (req, res, next) => {
         const foundUser = await User.findById(req.params.id)
         if (!foundUser) { throw new Error("User doesn't exists") }
 
-        const { profilePicture, username, accountCreation, email, bio } = foundUser;
+        const { profilePicture, username, profileHeader,
+            accountCreation, email, bio
+        } = foundUser;
+        
 
         // return the foundUser
         return res
             .status(200)
-            .json({ profilePicture, username, accountCreation, email, bio })
+            .json({ profilePicture, username, profileHeader, accountCreation, email, bio })
 
     }
 

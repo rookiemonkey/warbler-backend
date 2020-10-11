@@ -36,8 +36,14 @@ const signin = async (req, res, next) => {
         }
 
         // destructuring the keys
-        const { _id, username, profilePicture, createdAt, email, bio } = foundUser
-        const payload = { _id, username, profilePicture, createdAt, email, bio }
+        const { _id, username, profilePicture,
+            profileHeader, createdAt, email, bio
+        } = foundUser
+
+        const payload = {
+            _id, username, profilePicture,
+            profileHeader, createdAt, email, bio
+        }
 
         // creating a token
         const token = await setToken(payload)

@@ -38,8 +38,14 @@ const signup = async (req, res, next) => {
         const createdUser = await User.create(req.body)
 
         // destructuring
-        const { _id, username, profilePicture, createdAt, updatedAt, email } = createdUser
-        const payload = { _id, username, profilePicture, createdAt, updatedAt, email }
+        const { _id, username, profilePicture,
+            profileHeader, createdAt, updatedAt, email
+        } = createdUser
+
+        const payload = {
+            _id, username, profilePicture,
+            profileHeader, createdAt, updatedAt, email
+        }
 
         // create a token
         const token = await setToken(payload)
