@@ -22,7 +22,7 @@ const updateMsg = async (req, res, next) => {
 
         // update/save the message
         foundMessage.text = sanitizer.escape(req.body.text);
-        foundMessage.save();
+        await foundMessage.save();
 
         // respond back the found message to the client
         return res
