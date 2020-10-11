@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
     },
     OTPkey: String,
     profilePicture: String,
+    profileHeader: {
+        type: String,
+        default: null
+    },
     bio: {
         type: String,
         default: null
