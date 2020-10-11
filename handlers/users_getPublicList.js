@@ -8,7 +8,7 @@ const getPublicList = async (req, res, next) => {
         const foundUsers = await User
             .find({})
             .limit(6)
-            .select('_id username')
+            .select('_id username profilePicture')
 
         // return the foundUser
         return res
