@@ -6,8 +6,10 @@ const getMsgAll = async function (req, res, next) {
         // find all, sort descending, then populate the user key its username/picture
         const messages = await Message
             .find()
-            .sort({ updatedAt: "desc" })
+            .sort({ createdAt: "desc" })
             .populate("user", `username profilePicture`)
+            .limit(20)
+            .skip(req.query.skip) // add 20 every page/request eg: page 2 skips 20
 
         // return as json
         res
