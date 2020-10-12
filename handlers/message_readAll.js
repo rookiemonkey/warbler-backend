@@ -9,7 +9,7 @@ const getMsgAll = async function (req, res, next) {
             .sort({ createdAt: "desc" })
             .populate("user", `username profilePicture`)
             .limit(20)
-            .skip(req.query.skip) // add 20 every page/request eg: page 2 skips 20
+            .skip(parseInt(req.query.skip)) // add 20 every page/request eg: page 2 skips 20
 
         // return as json
         res
