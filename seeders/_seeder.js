@@ -18,8 +18,6 @@ if (!process.argv[2]) {
     process.exit()
 }
 
-console.log(process.env)
-
 // connect to database
 mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
@@ -31,7 +29,7 @@ mongoose.connect(process.env.DB_URL, {
 
 // read seeds json files
 const Users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
-
+const Messages = JSON.parse(fs.readFileSync(`${__dirname}/messages.json`, 'utf-8'));
 
 // function to import/delete to database
 const importData = async () => {
@@ -42,6 +40,9 @@ const importData = async () => {
 
         await User.create(Users);
         console.log(chalk.green('   ✓ Dummy Users imported'));
+
+        await Message.create(Messages);
+        console.log(chalk.green('   ✓ Dummy Messages imported'));
 
         spinner.stop(true);
         console.log(chalk.green('✓ Data imported'));
